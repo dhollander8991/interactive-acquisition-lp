@@ -1,10 +1,6 @@
-/* ============================================================
-   Interactive acquisition LP — shared engine, two skins.
-   No frameworks, no webfonts, no raster images.
-   Direction: editorial odds-sheet. Serif display is drawn from
-   racing form guides and matchday programmes — deliberately not
-   the arcade register that CAP guidance flags for youth appeal.
-   ============================================================ */
+/* Serif display register is drawn from racing form guides and matchday
+   programmes — deliberately not the arcade register that CAP guidance
+   flags for youth appeal. */
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -27,7 +23,6 @@
   --ease: cubic-bezier(0.2, 0.7, 0.25, 1);
 }
 
-/* Casino skin — oxblood and brass. */
 .theme-casino {
   --ink:        #14090C;
   --ink-raised: #210F15;
@@ -62,8 +57,6 @@ body {
   padding: 0 var(--gap) 3rem;
 }
 
-/* ---------- Masthead ---------- */
-
 .masthead {
   display: flex;
   align-items: baseline;
@@ -90,8 +83,6 @@ body {
   border-radius: 999px;
   white-space: nowrap;
 }
-
-/* ---------- Hero ---------- */
 
 .hero { padding: 2rem 0 1.5rem; }
 
@@ -123,8 +114,6 @@ body {
   min-height: 3em;
 }
 
-/* ---------- Widget ---------- */
-
 .widget {
   position: relative;
   /* Height is reserved up front — the spinner swap must not move anything. */
@@ -144,8 +133,6 @@ body {
   color: var(--paper-dim);
   margin: 0 0 0.75rem;
 }
-
-/* Loading state */
 
 .loader {
   position: absolute;
@@ -179,8 +166,6 @@ body {
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
-
-/* Choices */
 
 .choices {
   list-style: none;
@@ -250,8 +235,6 @@ body {
   box-shadow: inset 0 0 0 1px var(--accent);
 }
 
-/* Result */
-
 .result {
   margin-top: 1.1rem;
   border: 1px solid var(--accent);
@@ -311,8 +294,6 @@ body {
 }
 
 .cta:hover { filter: brightness(1.06); }
-
-/* ---------- Compliance ---------- */
 
 .compliance {
   margin-top: 2rem;
@@ -376,8 +357,6 @@ body {
   display: inline-block;
   padding: 0.5rem 0;
 }
-
-/* ---------- Motion preference ---------- */
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

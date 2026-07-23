@@ -1,51 +1,35 @@
-/* ============================================================
-   Shared engine. Both verticals run this file unchanged —
-   the only difference between the two pages is the config key
-   on <body data-vertical> and the theme class.
-   ============================================================ */
-
 (function () {
   'use strict';
 
-  var SPINNER_MS = 1500;
-  var vertical = document.body.dataset.vertical;
+  const SPINNER_MS = 1500;
+  const vertical = document.body.dataset.vertical;
 
-  /* One-shot lock. Set before any async work begins, so a second
-     tap during the reveal cannot register a second choice. */
-  var locked = false;
+  /* One-shot lock, set synchronously before any async work — a second tap
+     during the reveal must not register a second choice. Two more layers
+     back it up: disabled buttons and pointer-events on the resolved list. */
+  let locked = false;
 
-  var loader = document.getElementById('loader');
-  var choiceList = document.getElementById('choices');
-  var result = document.getElementById('result');
+  const loader = document.getElementById('loader');
+  const choiceList = document.getElementById('choices');
+  const result = document.getElementById('result');
 
-  function delay(ms) {
-    return new Promise(function (resolve) { setTimeout(resolve, ms); });
-  }
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  function fill(selector, value) {
-    var node = document.querySelector(selector);
+  const fill = (selector, value) => {
+    const node = document.querySelector(selector);
     if (node && value != null) node.textContent = value;
-  }
+  };
 
-  /* ---- A/B ------------------------------------------------
-     ?variant=B serves the challenger headline; anything else
-     falls through to control. Both headlines live in config,
-     so a new test is a data change, not a deploy.            */
-
-  function readVariant() {
-    var raw = new URLSearchParams(window.location.search).get('variant');
+  const readVariant = () => {
+    const raw = new URLSearchParams(window.location.search).get('variant');
     return raw && raw.trim().toUpperCase() === 'B' ? 'B' : 'A';
-  }
+  };
 
-  /* ---- Stage one: text -----------------------------------
-     Runs the moment config lands, well before the 1.5s gate.
-     Keeps the largest text block off the artificial delay.   */
-
-  function renderText(cfg) {
-    var variant = readVariant();
+  const renderText = (cfg) => {
+    const variant = readVariant();
 
     document.documentElement.lang = cfg.locale;
-    document.title = cfg.headline[variant] + ' — ' + cfg.brand;
+    document.title = `${cfg.headline[variant]} — ${cfg.brand}`;
     document.body.dataset.variant = variant;
 
     fill('.wordmark', cfg.brand);
@@ -59,133 +43,114 @@
     fill('.licence', cfg.compliance.licence);
     fill('.terms-toggle-label', cfg.compliance.termsLabel);
 
-    var help = document.querySelector('.rg-link');
+    const help = document.querySelector('.rg-link');
     if (help) {
       help.textContent = cfg.compliance.helpLabel;
       help.href = cfg.compliance.helpUrl;
     }
 
-    var termsList = document.querySelector('.terms-body ul');
+    const termsList = document.querySelector('.terms-body ul');
     if (termsList) {
       termsList.innerHTML = '';
-      cfg.choices.forEach(function (choice) {
-        var li = document.createElement('li');
-        li.textContent = choice.title + ' — ' + choice.terms;
+      cfg.choices.forEach((choice) => {
+        const li = document.createElement('li');
+        li.textContent = `${choice.title} — ${choice.terms}`;
         termsList.appendChild(li);
       });
-      var general = document.createElement('li');
+      const general = document.createElement('li');
       general.textContent = cfg.offer.wagering;
       termsList.appendChild(general);
     }
-  }
+  };
 
-  /* ---- Stage two: the interactive widget ------------------ */
+  const spanFor = (className, text) => {
+    const node = document.createElement('span');
+    node.className = className;
+    node.textContent = text;
+    return node;
+  };
 
-  function renderChoices(cfg) {
+  const renderChoices = (cfg) => {
     choiceList.innerHTML = '';
 
-    cfg.choices.forEach(function (choice) {
-      var li = document.createElement('li');
-
-      var button = document.createElement('button');
+    cfg.choices.forEach((choice) => {
+      const li = document.createElement('li');
+      const button = document.createElement('button');
       button.type = 'button';
       button.className = 'choice';
       button.setAttribute('aria-pressed', 'false');
       button.dataset.id = choice.id;
 
-      var kicker = document.createElement('span');
-      kicker.className = 'choice-kicker';
-      kicker.textContent = choice.kicker;
-
-      var title = document.createElement('span');
-      title.className = 'choice-title';
-      title.textContent = choice.title;
-
-      var detail = document.createElement('span');
-      detail.className = 'choice-detail';
-      detail.textContent = choice.detail;
-
-      button.append(kicker, title, detail);
-      button.addEventListener('click', function () { choose(cfg, choice); });
+      button.append(
+        spanFor('choice-kicker', choice.kicker),
+        spanFor('choice-title', choice.title),
+        spanFor('choice-detail', choice.detail)
+      );
+      button.addEventListener('click', () => choose(cfg, choice));
 
       li.appendChild(button);
       choiceList.appendChild(li);
     });
-  }
+  };
 
-  /* One pick per visit, mirroring the single-entry rule these
-     free-to-play mechanics use in production. */
-
-  function choose(cfg, choice) {
+  const choose = (cfg, choice) => {
     if (locked) return;
     locked = true;
 
-    Array.prototype.forEach.call(
-      choiceList.querySelectorAll('.choice'),
-      function (button) {
-        var picked = button.dataset.id === choice.id;
-        button.setAttribute('aria-pressed', String(picked));
-        button.disabled = true;
-      }
-    );
+    choiceList.querySelectorAll('.choice').forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.id === choice.id));
+      button.disabled = true;
+    });
 
-    /* Unpicked options stay on screen, dimmed rather than removed:
-       the user can see nothing was randomised away from them. */
     choiceList.classList.add('is-resolved');
 
     fill('.result-title', choice.title);
     fill('.result-terms', choice.terms);
 
-    var cta = document.querySelector('.cta');
+    const cta = document.querySelector('.cta');
     if (cta) {
       cta.textContent = cfg.cta;
-      cta.href = cfg.ctaHref + '?offer=' + encodeURIComponent(choice.id);
+      cta.href = `${cfg.ctaHref}?offer=${encodeURIComponent(choice.id)}`;
     }
 
     result.hidden = false;
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () { result.classList.add('is-shown'); });
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => result.classList.add('is-shown'));
     });
-  }
+  };
 
-  function dismissLoader() {
+  const dismissLoader = () => {
     loader.classList.add('is-leaving');
-    window.setTimeout(function () { loader.hidden = true; }, 280);
-  }
+    window.setTimeout(() => { loader.hidden = true; }, 280);
+  };
 
-  /* ---- Terms open in place -------------------------------- */
-
-  var termsToggle = document.querySelector('.terms-toggle');
+  const termsToggle = document.querySelector('.terms-toggle');
   if (termsToggle) {
-    termsToggle.addEventListener('click', function () {
-      var body = document.querySelector('.terms-body');
-      var open = termsToggle.getAttribute('aria-expanded') === 'true';
+    termsToggle.addEventListener('click', () => {
+      const body = document.querySelector('.terms-body');
+      const open = termsToggle.getAttribute('aria-expanded') === 'true';
       termsToggle.setAttribute('aria-expanded', String(!open));
       body.hidden = open;
     });
   }
 
-  /* ---- Boot ----------------------------------------------
-     The config fetch doubles as the simulated API call, so the
-     spinner covers real async work rather than a bare timer.
-     Text paints on arrival; the widget waits out the full
-     1.5s even when the fetch returns sooner.                 */
-
-  var config = fetch('config.json').then(function (response) {
-    if (!response.ok) throw new Error('config ' + response.status);
+  /* Two-stage boot. The config fetch doubles as the simulated API call, so
+     the spinner covers real async work rather than a bare timer. Text paints
+     the moment config resolves; the widget alone waits out the full 1.5s,
+     so the required delay never puts a floor under first paint. */
+  const config = fetch('config.json').then((response) => {
+    if (!response.ok) throw new Error(`config ${response.status}`);
     return response.json();
   });
 
-  config
-    .then(function (data) { renderText(data[vertical]); })
-    .catch(function () {});
+  config.then((data) => renderText(data[vertical])).catch(() => {});
 
   Promise.all([config, delay(SPINNER_MS)])
-    .then(function (settled) {
-      renderChoices(settled[0][vertical]);
+    .then(([data]) => {
+      renderChoices(data[vertical]);
       dismissLoader();
     })
-    .catch(function () {
+    .catch(() => {
       fill('.loader-label', 'Offers unavailable. Please refresh.');
       loader.querySelector('.spinner').remove();
     });
