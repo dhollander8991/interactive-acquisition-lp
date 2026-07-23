@@ -150,6 +150,12 @@
 
     result.hidden = false;
     requestAnimationFrame(() => {
+      /* The reveal can land below the fold — bring it into view. nearest
+         scrolls the minimum distance, so no jump when already visible. */
+      result.scrollIntoView({
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'nearest'
+      });
       requestAnimationFrame(() => result.classList.add('is-shown'));
     });
   };
