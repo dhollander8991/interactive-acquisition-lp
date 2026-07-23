@@ -216,12 +216,16 @@ The config fetch also *is* the simulated API call —
 `Promise.all([fetch, delay(1500)])` — so the spinner covers real async work rather than a
 bare timer, and a slow network extends the wait rather than breaking the contract.
 
-### Double-submission
+### Double-submission, and where commitment lives
 
-Three defences, because the failure is silent: a module-level `locked` flag set
-synchronously before any async work; every button `disabled` on resolve; and
-`pointer-events: none` on the resolved container. Verified with an automated triple-click —
-only the first registers.
+The brief asks for double-click blocking during animations. A synchronous `locked` flag,
+set before any async work, ignores clicks for the length of the resolve transition —
+verified with an automated triple-click, which registers exactly one selection.
+
+The selection itself stays editable: clicking a different offer after the reveal switches
+it, and the panel updates in place. Commitment point is the CTA, not the pick — users can
+compare and switch before registering. The permanent-lock alternative reads as a slot
+machine; this is a selector.
 
 ### Performance
 

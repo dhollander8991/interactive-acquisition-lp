@@ -8,8 +8,10 @@
 
 - The two-stage boot: text paints the moment config resolves; the widget alone
   is gated for the full 1.5s.
-- The triple double-click lock: synchronous `locked` flag, `disabled` buttons,
-  `pointer-events: none` on the resolved list.
+- The double-click animation guard: a synchronous transient lock covering the
+  resolve transition, so a rapid double-tap registers exactly one selection.
+  Selection stays editable after — the commitment point is the CTA, not the
+  pick.
 - The dimmed-but-visible unchosen options — nothing is randomised away from
-  the user, and they can see that.
+  the user, and they can see that (and switch to them until the CTA commit).
 - The inline terms expander — terms must not require leaving the page.

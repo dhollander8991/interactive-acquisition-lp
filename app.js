@@ -4,10 +4,13 @@
   const SPINNER_MS = 1500;
   const vertical = document.body.dataset.vertical;
 
-  /* One-shot lock, set synchronously before any async work — a second tap
-     during the reveal must not register a second choice. Two more layers
-     back it up: disabled buttons and pointer-events on the resolved list. */
+  /* Transient guard, set synchronously before any async work: clicks are
+     ignored for the length of the resolve transition, so a rapid double-tap
+     registers exactly one selection. The selection itself stays editable —
+     the commitment point is the CTA, not the pick. */
   let locked = false;
+  let currentId = null;
+  const GUARD_MS = 400;
 
   const loader = document.getElementById('loader');
   const choiceList = document.getElementById('choices');
@@ -129,12 +132,14 @@
   };
 
   const choose = (cfg, choice) => {
-    if (locked) return;
+    if (locked || choice.id === currentId) return;
     locked = true;
+    window.setTimeout(() => { locked = false; }, GUARD_MS);
+    const isSwitch = currentId !== null;
+    currentId = choice.id;
 
     choiceList.querySelectorAll('.choice').forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.id === choice.id));
-      button.disabled = true;
     });
 
     choiceList.classList.add('is-resolved');
@@ -148,10 +153,18 @@
       cta.href = `${cfg.ctaHref}?offer=${encodeURIComponent(choice.id)}`;
     }
 
+    if (isSwitch) {
+      /* Panel updates in place — a quick content fade, no hide/reshow. */
+      result.classList.remove('is-switching');
+      void result.offsetWidth;
+      result.classList.add('is-switching');
+      return;
+    }
+
     result.hidden = false;
     requestAnimationFrame(() => {
-      /* The reveal can land below the fold — bring it into view. nearest
-         scrolls the minimum distance, so no jump when already visible. */
+      /* First reveal can land below the fold — bring it into view. Switches
+         don't re-scroll: the user switching is already looking at the cards. */
       result.scrollIntoView({
         behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
         block: 'nearest'

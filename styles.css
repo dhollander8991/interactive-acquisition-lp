@@ -326,14 +326,17 @@ body {
   margin-top: 0.25rem;
 }
 
-/* Resolved state: the unpicked options stay on screen, dimmed.
-   Nothing was randomised and the user can still see the alternatives. */
-
-.choices.is-resolved .choice { pointer-events: none; }
+/* Resolved state: the unpicked options stay on screen, dimmed but still
+   live — the selection is editable until the CTA commits it. */
 
 .choices.is-resolved .choice[aria-pressed="false"] {
   opacity: 0.34;
   transform: scale(0.97);
+}
+
+.choices.is-resolved .choice[aria-pressed="false"]:hover,
+.choices.is-resolved .choice[aria-pressed="false"]:focus-visible {
+  opacity: 0.75;
 }
 
 /* The reveal is a moment: the chosen card lifts. transform stays out of
@@ -380,6 +383,10 @@ body {
 
 .result[hidden] { display: none; }
 .result.is-shown { opacity: 1; transform: none; }
+
+.result.is-switching { animation: switch-fade 240ms var(--ease); }
+
+@keyframes switch-fade { from { opacity: 0.35; } }
 
 /* The Entain house 1-2-3 strip, echoed at the moment of commitment. */
 .result-steps {
