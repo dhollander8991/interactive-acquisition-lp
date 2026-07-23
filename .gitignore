@@ -1,0 +1,6 @@
+.idea/
+.DS_Store
+node_modules/
+
+# internal handoff — not part of the deliverable
+CLAUDE_CODE_BRIEF.md
