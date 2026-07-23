@@ -81,9 +81,10 @@
       button.setAttribute('aria-pressed', 'false');
       button.dataset.id = choice.id;
 
+      button.append(spanFor('choice-kicker', choice.kicker));
+      if (choice.figure) button.append(spanFor('choice-figure', choice.figure));
       button.append(
-        spanFor('choice-kicker', choice.kicker),
-        spanFor('choice-title', choice.title),
+        spanFor('choice-title', choice.label || choice.title),
         spanFor('choice-detail', choice.detail)
       );
       button.addEventListener('click', () => choose(cfg, choice));

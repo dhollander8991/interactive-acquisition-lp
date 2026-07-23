@@ -25,6 +25,8 @@
       {
         "id": "spins",
         "kicker": "No deposit",
+        "figure": "60",
+        "label": "free spins",
         "title": "60 free spins",
         "detail": "On eligible games. No deposit required.",
         "terms": "60 spins credited on registration. Winnings capped at £50. 40x wagering.",
@@ -33,6 +35,8 @@
       {
         "id": "match",
         "kicker": "Deposit £10",
+        "figure": "£100",
+        "label": "deposit match",
         "title": "100% up to £100",
         "detail": "Your first deposit, doubled.",
         "terms": "Min deposit £10. Bonus and deposit must be wagered 40x within 30 days.",
@@ -41,6 +45,8 @@
       {
         "id": "drip",
         "kicker": "Deposit £10",
+        "figure": "500",
+        "label": "spins over 10 days",
         "title": "500 spins over 10 days",
         "detail": "50 spins a day, ten days running.",
         "terms": "Min deposit £10. 50 spins released daily for 10 days. 40x wagering.",
@@ -82,24 +88,27 @@
       {
         "id": "match-1",
         "kicker": "Gruppe C · Sa 20:00",
+        "figure": "100 €",
         "title": "Deutschland — Kroatien",
-        "detail": "Freiwette bis 100 € auf diese Partie.",
+        "detail": "Freiwette auf genau diese Partie.",
         "terms": "Mindesteinzahlung 10 €. Freiwette gilt nur für das gewählte Spiel.",
         "mark": "match-a"
       },
       {
         "id": "match-2",
         "kicker": "Gruppe D · Sa 23:00",
+        "figure": "100 €",
         "title": "Brasilien — Frankreich",
-        "detail": "Freiwette bis 100 € auf diese Partie.",
+        "detail": "Freiwette auf genau diese Partie.",
         "terms": "Mindesteinzahlung 10 €. Freiwette gilt nur für das gewählte Spiel.",
         "mark": "match-b"
       },
       {
         "id": "match-3",
         "kicker": "Gruppe A · So 18:00",
+        "figure": "100 €",
         "title": "Argentinien — Spanien",
-        "detail": "Freiwette bis 100 € auf diese Partie.",
+        "detail": "Freiwette auf genau diese Partie.",
         "terms": "Mindesteinzahlung 10 €. Freiwette gilt nur für das gewählte Spiel.",
         "mark": "match-c"
       }
