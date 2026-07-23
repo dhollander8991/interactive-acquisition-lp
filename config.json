@@ -1,0 +1,116 @@
+{
+  "casino": {
+    "vertical": "casino",
+    "market": "UK",
+    "region": "uk",
+    "campaign": "generic",
+    "locale": "en-GB",
+    "currency": "£",
+    "brand": "Coral",
+    "eyebrow": "New customer offer",
+    "headline": {
+      "A": "Pick your welcome offer",
+      "B": "60 free spins, no deposit"
+    },
+    "subhead": "Three offers. Pick one — it's yours. Nothing is randomised.",
+    "prompt": "Choose an offer",
+    "cta": "Create account",
+    "ctaHref": "#register",
+    "offer": {
+      "validUntil": "2026-12-31",
+      "qualifyingDeposit": 10,
+      "wagering": "40x wagering on bonus and deposit within 30 days."
+    },
+    "choices": [
+      {
+        "id": "spins",
+        "kicker": "No deposit",
+        "title": "60 free spins",
+        "detail": "On eligible games. No deposit required.",
+        "terms": "60 spins credited on registration. Winnings capped at £50. 40x wagering.",
+        "mark": "spins"
+      },
+      {
+        "id": "match",
+        "kicker": "Deposit £10",
+        "title": "100% up to £100",
+        "detail": "Your first deposit, doubled.",
+        "terms": "Min deposit £10. Bonus and deposit must be wagered 40x within 30 days.",
+        "mark": "match"
+      },
+      {
+        "id": "drip",
+        "kicker": "Deposit £10",
+        "title": "500 spins over 10 days",
+        "detail": "50 spins a day, ten days running.",
+        "terms": "Min deposit £10. 50 spins released daily for 10 days. 40x wagering.",
+        "mark": "drip"
+      }
+    ],
+    "compliance": {
+      "ageLimit": "18+",
+      "message": "Take time to think.",
+      "helpLabel": "BeGambleAware.org",
+      "helpUrl": "https://www.begambleaware.org",
+      "licence": "Licensed and regulated by the Great Britain Gambling Commission.",
+      "termsLabel": "Full terms and conditions"
+    }
+  },
+  "sports": {
+    "vertical": "sports",
+    "market": "DE",
+    "region": "dach",
+    "campaign": "wm-2026",
+    "locale": "de-DE",
+    "currency": "€",
+    "brand": "bwin",
+    "eyebrow": "Neukundenangebot",
+    "headline": {
+      "A": "Tippe ein Spiel. Sichere deine Freiwette.",
+      "B": "Bis zu 100 € Freiwette"
+    },
+    "subhead": "Wähle ein Spiel aus. Deine Freiwette gilt für genau diese Partie.",
+    "prompt": "Spiel auswählen",
+    "cta": "Konto erstellen",
+    "ctaHref": "#register",
+    "offer": {
+      "validUntil": "2026-12-31",
+      "qualifyingDeposit": 10,
+      "wagering": "Einzahlungs- und Bonusbetrag 3x in 30 Tagen einsetzen. Mindestquote 1.7."
+    },
+    "choices": [
+      {
+        "id": "match-1",
+        "kicker": "Gruppe C · Sa 20:00",
+        "title": "Deutschland — Kroatien",
+        "detail": "Freiwette bis 100 € auf diese Partie.",
+        "terms": "Mindesteinzahlung 10 €. Freiwette gilt nur für das gewählte Spiel.",
+        "mark": "match-a"
+      },
+      {
+        "id": "match-2",
+        "kicker": "Gruppe D · Sa 23:00",
+        "title": "Brasilien — Frankreich",
+        "detail": "Freiwette bis 100 € auf diese Partie.",
+        "terms": "Mindesteinzahlung 10 €. Freiwette gilt nur für das gewählte Spiel.",
+        "mark": "match-b"
+      },
+      {
+        "id": "match-3",
+        "kicker": "Gruppe A · So 18:00",
+        "title": "Argentinien — Spanien",
+        "detail": "Freiwette bis 100 € auf diese Partie.",
+        "terms": "Mindesteinzahlung 10 €. Freiwette gilt nur für das gewählte Spiel.",
+        "mark": "match-c"
+      }
+    ],
+    "compliance": {
+      "ageLimit": "18+",
+      "message": "Glücksspiel kann süchtig machen. Spiele verantwortungsbewusst.",
+      "helpLabel": "buwei.de",
+      "helpUrl": "https://www.buwei.de",
+      "licence": "Offiziell lizenzierter Anbieter in Deutschland. Aufsicht: GGL.",
+      "termsLabel": "Teilnahmebedingungen"
+    }
+  }
+}
