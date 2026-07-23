@@ -34,7 +34,14 @@
   --accent-ink: #171104;
 }
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  /* No element overflows layout at 360–390px (verified); this stops
+     paint-only extensions — focus outlines, the reveal glow — from
+     rubber-banding the viewport on real devices. clip, not hidden,
+     so no scroll container is created. */
+  overflow-x: clip;
+}
 
 body {
   margin: 0;
@@ -310,12 +317,12 @@ body {
   width: 100%;
   margin-top: 0.9rem;
   padding: 1.1rem 1rem;
-  font-size: 1.05rem;
   background: var(--accent);
   color: var(--accent-ink);
   border: 0;
   border-radius: 0.35rem;
   font: inherit;
+  font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-align: center;
