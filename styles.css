@@ -1,0 +1,389 @@
+/* ============================================================
+   Interactive acquisition LP — shared engine, two skins.
+   No frameworks, no webfonts, no raster images.
+   Direction: editorial odds-sheet. Serif display is drawn from
+   racing form guides and matchday programmes — deliberately not
+   the arcade register that CAP guidance flags for youth appeal.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --ink:        #0B0F14;
+  --ink-raised: #131B24;
+  --ink-sunk:   #070A0E;
+  --paper:      #ECE7DD;
+  --paper-dim:  #9AA3AD;
+  --rule:       rgba(236, 231, 221, 0.16);
+  --accent:     #F0A81C;
+  --accent-ink: #1A1206;
+
+  --display: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --step: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+  --gap: clamp(1rem, 4vw, 1.75rem);
+  --shell: 34rem;
+  --ease: cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+/* Casino skin — oxblood and brass. */
+.theme-casino {
+  --ink:        #14090C;
+  --ink-raised: #210F15;
+  --ink-sunk:   #0C0507;
+  --paper:      #F0E9E3;
+  --paper-dim:  #A99A97;
+  --rule:       rgba(240, 233, 227, 0.16);
+  --accent:     #C9A227;
+  --accent-ink: #171104;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--body);
+  font-size: var(--step);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.shell {
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding: 0 var(--gap) 3rem;
+}
+
+/* ---------- Masthead ---------- */
+
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 0 0.9rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.wordmark {
+  font-family: var(--display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.age-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid var(--paper);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ---------- Hero ---------- */
+
+.hero { padding: 2rem 0 1.5rem; }
+
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.9rem;
+}
+
+.headline {
+  font-family: var(--display);
+  font-size: clamp(2.1rem, 1.4rem + 3.6vw, 3.1rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  margin: 0;
+  /* Reserve three lines so the late-painting headline (either variant,
+     either locale) cannot shift the widget below it. */
+  min-height: 3.1em;
+}
+
+.subhead {
+  color: var(--paper-dim);
+  margin: 0.9rem 0 0;
+  max-width: 30ch;
+  min-height: 3em;
+}
+
+/* ---------- Widget ---------- */
+
+.widget {
+  position: relative;
+  /* Height is reserved up front — the spinner swap must not move anything. */
+  min-height: 21rem;
+  margin-top: 1.5rem;
+}
+
+/* Sports fixtures render a line taller than the casino offers, so the
+   sports skin reserves more up front. Same reason, per-vertical value. */
+.theme-sports .widget { min-height: 24rem; }
+
+.prompt {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  margin: 0 0 0.75rem;
+}
+
+/* Loading state */
+
+.loader {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.9rem;
+  justify-items: center;
+  background: var(--ink);
+  transition: opacity 260ms var(--ease);
+}
+
+.loader[hidden] { display: none; }
+
+.loader.is-leaving { opacity: 0; }
+
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--rule);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+
+.loader-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Choices */
+
+.choices {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.choice {
+  width: 100%;
+  display: block;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: var(--ink-raised);
+  border: 1px solid var(--rule);
+  border-radius: 0.4rem;
+  padding: 0.95rem 1rem;
+  cursor: pointer;
+  transition:
+    transform 220ms var(--ease),
+    border-color 220ms var(--ease),
+    opacity 320ms var(--ease);
+}
+
+.choice:hover:not(:disabled) { border-color: var(--accent); }
+.choice:active:not(:disabled) { transform: scale(0.985); }
+
+.choice-kicker {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.choice-title {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.22rem;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.choice-detail {
+  display: block;
+  color: var(--paper-dim);
+  font-size: 0.84rem;
+  margin-top: 0.25rem;
+}
+
+/* Resolved state: the unpicked options stay on screen, dimmed.
+   Nothing was randomised and the user can still see the alternatives. */
+
+.choices.is-resolved .choice { pointer-events: none; }
+
+.choices.is-resolved .choice[aria-pressed="false"] {
+  opacity: 0.34;
+  transform: scale(0.97);
+}
+
+.choices.is-resolved .choice[aria-pressed="true"] {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+/* Result */
+
+.result {
+  margin-top: 1.1rem;
+  border: 1px solid var(--accent);
+  border-radius: 0.4rem;
+  background: var(--ink-sunk);
+  padding: 1.1rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 380ms var(--ease), transform 380ms var(--ease);
+}
+
+.result[hidden] { display: none; }
+.result.is-shown { opacity: 1; transform: none; }
+
+.result-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  margin: 0 0 0.35rem;
+}
+
+.result-title {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.5rem;
+}
+
+/* The wagering requirement sits against the offer claim, not below the
+   fold — a compliance line and a trust line at the same time. */
+.result-terms {
+  color: var(--paper-dim);
+  font-size: 0.8rem;
+  margin: 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--rule);
+}
+
+.cta {
+  display: block;
+  width: 100%;
+  margin-top: 0.9rem;
+  padding: 0.95rem 1rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 0;
+  border-radius: 0.35rem;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cta:hover { filter: brightness(1.06); }
+
+/* ---------- Compliance ---------- */
+
+.compliance {
+  margin-top: 2rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.76rem;
+  color: var(--paper-dim);
+}
+
+.compliance p { margin: 0 0 0.5rem; }
+.compliance a { color: var(--paper); }
+
+.terms-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  padding: 0.85rem 0;
+  margin-top: 0.6rem;
+  color: var(--paper);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.terms-toggle::after {
+  content: "+";
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.terms-toggle[aria-expanded="true"]::after { content: "\2013"; }
+
+/* Terms open in place. Sending a user off-page to read them costs the
+   conversion and the disclosure at the same time. */
+.terms-body[hidden] { display: none; }
+
+.terms-body {
+  font-size: 0.76rem;
+  color: var(--paper-dim);
+  padding-bottom: 0.9rem;
+}
+
+.terms-body ul { margin: 0; padding-left: 1.1rem; }
+.terms-body li { margin-bottom: 0.3rem; }
+
+.skin-switch {
+  margin-top: 1.5rem;
+  font-size: 0.76rem;
+}
+
+.skin-switch a {
+  color: var(--paper-dim);
+  display: inline-block;
+  padding: 0.5rem 0;
+}
+
+/* ---------- Motion preference ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .spinner { border-top-color: var(--accent); }
+}

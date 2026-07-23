@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tippe ein Spiel und sichere dir deine Freiwette für genau diese Partie.">
+<title>Neukundenangebot</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%230B0F14'/%3E%3C/svg%3E">
+<link rel="preload" href="config.json" as="fetch">
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="theme-sports" data-vertical="sports">
+<div class="shell">
+
+  <header class="masthead">
+    <p class="wordmark">&nbsp;</p>
+    <span class="age-badge">&nbsp;</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">&nbsp;</p>
+      <h1 class="headline">&nbsp;</h1>
+      <p class="subhead">&nbsp;</p>
+    </section>
+
+    <section class="widget" aria-labelledby="prompt">
+      <h2 class="prompt" id="prompt">&nbsp;</h2>
+
+      <ul class="choices" id="choices"></ul>
+
+      <div class="loader" id="loader">
+        <div class="spinner" role="presentation"></div>
+        <p class="loader-label" role="status">Spiele werden geladen</p>
+      </div>
+
+      <div class="result" id="result" role="status" hidden>
+        <p class="result-label">Deine Auswahl</p>
+        <p class="result-title"></p>
+        <p class="result-terms"></p>
+        <a class="cta" href="#register">Konto erstellen</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="compliance">
+    <p class="rg-message"></p>
+    <p>
+      <a class="rg-link" href="#" rel="noopener noreferrer" target="_blank"></a>
+    </p>
+    <p class="licence"></p>
+
+    <button class="terms-toggle" type="button" aria-expanded="false" aria-controls="terms">
+      <span class="terms-toggle-label">Teilnahmebedingungen</span>
+    </button>
+    <div class="terms-body" id="terms" hidden>
+      <ul></ul>
+    </div>
+
+    <p class="skin-switch"><a href="index.html">Zum Casino-Konzept &rarr;</a></p>
+  </footer>
+
+</div>
+<script src="app.js" defer></script>
+</body>
+</html>
