@@ -39,6 +39,22 @@
     fill('.subhead', cfg.subhead);
     fill('.prompt', cfg.prompt);
 
+    /* Trust line rides inside the subhead's reserved block so its late
+       paint cannot shift the widget. */
+    const subhead = document.querySelector('.subhead');
+    if (subhead && cfg.trustline) subhead.append(spanFor('trustline', cfg.trustline));
+
+    if (cfg.steps && !document.querySelector('.result-steps')) {
+      const strip = document.createElement('ol');
+      strip.className = 'result-steps';
+      cfg.steps.forEach((step) => {
+        const li = document.createElement('li');
+        li.textContent = step;
+        strip.appendChild(li);
+      });
+      result.insertBefore(strip, document.querySelector('.cta'));
+    }
+
     fill('.rg-message', cfg.compliance.message);
     fill('.licence', cfg.compliance.licence);
     fill('.terms-toggle-label', cfg.compliance.termsLabel);
@@ -83,10 +99,28 @@
 
       button.append(spanFor('choice-kicker', choice.kicker));
       if (choice.figure) button.append(spanFor('choice-figure', choice.figure));
-      button.append(
-        spanFor('choice-title', choice.label || choice.title),
-        spanFor('choice-detail', choice.detail)
-      );
+
+      /* An em-dash in the label marks a fixture — set the teams large with
+         a vs between them, the matchday-billboard treatment. */
+      const label = choice.label || choice.title;
+      if (label.includes(' — ')) {
+        const [home, away] = label.split(' — ');
+        const fixture = document.createElement('span');
+        fixture.className = 'choice-title choice-title--fixture';
+        fixture.append(spanFor('team', home), spanFor('vs', 'vs'), spanFor('team', away));
+        button.append(fixture);
+      } else {
+        button.append(spanFor('choice-title', label));
+      }
+
+      button.append(spanFor('choice-detail', choice.detail));
+
+      if (choice.days) {
+        const chips = document.createElement('span');
+        chips.className = 'day-chips';
+        for (let d = 1; d <= choice.days; d += 1) chips.append(spanFor('day-chip', `D${d}`));
+        button.append(chips);
+      }
       button.addEventListener('click', () => choose(cfg, choice));
 
       li.appendChild(button);

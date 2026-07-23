@@ -13,6 +13,8 @@
       "B": "60 free spins, no deposit"
     },
     "subhead": "Three offers. Pick one — it's yours. Nothing is randomised.",
+    "trustline": "Licensed & regulated in Great Britain",
+    "steps": ["Picked", "Register", "Claim"],
     "prompt": "Choose an offer",
     "cta": "Create account",
     "ctaHref": "#register",
@@ -47,6 +49,7 @@
         "kicker": "Deposit £10",
         "figure": "500",
         "label": "spins over 10 days",
+        "days": 10,
         "title": "500 spins over 10 days",
         "detail": "50 spins a day, ten days running.",
         "terms": "Min deposit £10. 50 spins released daily for 10 days. 40x wagering.",
@@ -76,6 +79,7 @@
       "B": "Bis zu 100 € Freiwette"
     },
     "subhead": "Wähle ein Spiel aus. Deine Freiwette gilt für genau diese Partie.",
+    "steps": ["Getippt", "Registrieren", "Einlösen"],
     "prompt": "Spiel auswählen",
     "cta": "Konto erstellen",
     "ctaHref": "#register",
