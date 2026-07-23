@@ -100,7 +100,23 @@ body {
   white-space: nowrap;
 }
 
-.hero { padding: 2rem 0 1.5rem; }
+.hero { position: relative; padding: 2.2rem 0 1.8rem; }
+
+/* The scene tilts one way, the headline the other — diagonal energy
+   while standing still. The 12px inset absorbs the ~9px bounding-box
+   bulge from the 5° rotation, so the art reads flush to the viewport
+   edge without exceeding layout width. */
+.hero-art {
+  position: absolute;
+  top: 0;
+  right: calc(var(--gap) * -1 + 12px);
+  width: min(62vw, 20rem);
+  height: auto;
+  pointer-events: none;
+  transform: rotate(5deg);
+}
+
+.eyebrow, .headline, .subhead { position: relative; z-index: 1; }
 
 .eyebrow {
   font-size: 0.7rem;
@@ -114,10 +130,15 @@ body {
 .headline {
   font-family: var(--display);
   font-size: clamp(2.1rem, 1.4rem + 3.6vw, 3.1rem);
+  font-style: italic;
   line-height: 1.02;
   letter-spacing: -0.02em;
   font-weight: 700;
   margin: 0;
+  /* Counter-tilt against the scene; transform stays out of layout, so
+     the reserve and CLS are untouched. */
+  transform: rotate(-2.5deg);
+  transform-origin: 0 100%;
   /* Reserve three lines so the late-painting headline (either variant,
      either locale) cannot shift the widget below it. */
   min-height: 3.1em;

@@ -20,6 +20,36 @@
 
   <main>
     <section class="hero">
+      <svg class="hero-art" viewBox="0 0 340 300" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="sBeam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F0A81C" stop-opacity=".17"/><stop offset="1" stop-color="#F0A81C" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="sBall" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#F4EDDE"/><stop offset="1" stop-color="#B9AF9C"/>
+          </linearGradient>
+          <linearGradient id="sScrim" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#0B0F14"/><stop offset=".5" stop-color="#0B0F14" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <polygon points="34,-20 96,-20 268,300 136,300" fill="url(#sBeam)"/>
+        <polygon points="322,-20 258,-20 56,300 190,300" fill="url(#sBeam)"/>
+        <path d="M-10 264 Q170 196 350 264 L350 300 L-10 300 Z" fill="#10161E"/>
+        <path d="M-10 264 Q170 196 350 264" fill="none" stroke="#F0A81C" stroke-opacity=".4" stroke-width="1.5"/>
+        <g stroke="#F0A81C" stroke-linecap="round" fill="none">
+          <path d="M46 148 H152" stroke-width="5" stroke-opacity=".85"/>
+          <path d="M30 174 H130" stroke-width="4" stroke-opacity=".5"/>
+          <path d="M60 198 H140" stroke-width="3" stroke-opacity=".3"/>
+        </g>
+        <g transform="translate(240 162) rotate(9)">
+          <circle r="54" fill="url(#sBall)"/>
+          <path d="M0 -21 L-20 -6.5 L-12.4 17 L12.4 17 L20 -6.5 Z" fill="#0B0F14"/>
+          <path d="M0 -21 L0 -53 M-20 -6.5 L-50 -16 M-12.4 17 L-31 43 M12.4 17 L31 43 M20 -6.5 L50 -16" stroke="#0B0F14" stroke-width="3"/>
+          <circle r="54" fill="none" stroke="#0B0F14" stroke-width="3"/>
+          <path d="M-40 -35 A54 54 0 0 1 40 -35" fill="none" stroke="#F0A81C" stroke-opacity=".55" stroke-width="4"/>
+        </g>
+        <rect width="340" height="300" fill="url(#sScrim)"/>
+      </svg>
       <p class="eyebrow">&nbsp;</p>
       <h1 class="headline">&nbsp;</h1>
       <p class="subhead">&nbsp;</p>

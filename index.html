@@ -20,6 +20,45 @@
 
   <main>
     <section class="hero">
+      <svg class="hero-art" viewBox="0 0 340 300" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="gEdge" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#EED27A"/><stop offset="1" stop-color="#8F6E14"/>
+          </linearGradient>
+          <linearGradient id="gFace" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2B1219"/><stop offset="1" stop-color="#150A0D"/>
+          </linearGradient>
+          <linearGradient id="gSpot" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#EED27A" stop-opacity=".3"/><stop offset="1" stop-color="#EED27A" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="gScrim" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#14090C"/><stop offset=".55" stop-color="#14090C" stop-opacity="0"/>
+          </linearGradient>
+          <pattern id="pLatt" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <path d="M0 0H10" stroke="#C9A227" stroke-opacity=".3" stroke-width="1"/>
+            <path d="M0 5H10" stroke="#C9A227" stroke-opacity=".15" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <polygon points="238,-30 92,300 340,300" fill="url(#gSpot)"/>
+        <g transform="rotate(-26 205 268)">
+          <rect x="160" y="92" width="90" height="128" rx="9" fill="url(#gFace)" stroke="url(#gEdge)" stroke-width="1.5"/>
+          <rect x="168" y="100" width="74" height="112" rx="5" fill="url(#pLatt)" stroke="#C9A227" stroke-opacity=".45"/>
+        </g>
+        <g transform="rotate(-5 205 268)">
+          <rect x="160" y="92" width="90" height="128" rx="9" fill="url(#gFace)" stroke="url(#gEdge)" stroke-width="1.5"/>
+          <rect x="168" y="100" width="74" height="112" rx="5" fill="url(#pLatt)" stroke="#C9A227" stroke-opacity=".45"/>
+        </g>
+        <g transform="rotate(17 205 268)">
+          <rect x="160" y="92" width="90" height="128" rx="9" fill="url(#gFace)" stroke="url(#gEdge)" stroke-width="1.5"/>
+          <rect x="168" y="100" width="74" height="112" rx="5" fill="url(#pLatt)" stroke="#C9A227" stroke-opacity=".45"/>
+        </g>
+        <circle cx="88" cy="262" r="24" fill="#180B0E" stroke="url(#gEdge)" stroke-width="1.5"/>
+        <circle cx="88" cy="262" r="18" fill="none" stroke="#C9A227" stroke-width="3.5" stroke-dasharray="7 8" stroke-opacity=".5"/>
+        <circle cx="122" cy="250" r="27" fill="#1C0D11" stroke="url(#gEdge)" stroke-width="2"/>
+        <circle cx="122" cy="250" r="21" fill="none" stroke="#EED27A" stroke-width="4" stroke-dasharray="8 9" stroke-opacity=".85"/>
+        <circle cx="122" cy="250" r="11" fill="none" stroke="#C9A227" stroke-opacity=".55"/>
+        <rect width="340" height="300" fill="url(#gScrim)"/>
+      </svg>
       <p class="eyebrow">&nbsp;</p>
       <h1 class="headline">&nbsp;</h1>
       <p class="subhead">&nbsp;</p>
